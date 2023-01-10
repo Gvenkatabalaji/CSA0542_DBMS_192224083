@@ -1,0 +1,106 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 30
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use balaji
+Database changed
+mysql> select*from mentees;
++-------+---------+-------+------------+-------+---------+
+| regno | name    | dept  | fathername | marks | subject |
++-------+---------+-------+------------+-------+---------+
+|  4259 | karthik | cse   | hari       |    98 | bioevs  |
+|  4259 | hithesh | cse   | sumanth    |    98 | bioevs  |
+|  4239 | nani    | ai&ds | raja       |    99 | dbms    |
++-------+---------+-------+------------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> create table mdept(deptid int(5),deptname varchar(20),rollno int(20));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc mdept:
+    -> desc mdept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':
+desc mdept' at line 1
+mysql> desc mdept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| deptid   | int(5)      | YES  |     | NULL    |       |
+| deptname | varchar(20) | YES  |     | NULL    |       |
+| rollno   | int(20)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> insert into mdept values(1,"cse",4083);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into mdept values(1,"ece",4082);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mdept values(1,"bme",4081);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into mdept values(1,"eee",4071);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> update mdept set deptid=4 where rollno=4071;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from mdept;
++--------+----------+--------+
+| deptid | deptname | rollno |
++--------+----------+--------+
+|      1 | cse      |   4083 |
+|      1 | ece      |   4082 |
+|      1 | bme      |   4081 |
+|      4 | eee      |   4071 |
++--------+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> update mdept set deptname="ai&ds" where rollno=4081;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+mysql> select deptid,deptname from mdept,mentees where mdept.rollno=mentees.regno;
+Empty set (0.00 sec)
+
+mysql> select deptid,deptname from mdept,mentees where mdept.rollno=mentees.regno;
+Empty set (0.00 sec)
+
+
+mysql> select deptid,deptname from mdept,mentees where mdept.rollno=mentees.regno;
+Empty set (0.00 sec)
+
+mysql> select rollno,deptname,name from mdept left outer join mentees on mdept.rollno=mentees.regno;
++--------+----------+------+
+| rollno | deptname | name |
++--------+----------+------+
+|   4083 | cse      | NULL |
+|   4082 | ece      | NULL |
+|   4081 | ai&ds    | NULL |
+|   4071 | eee      | NULL |
++--------+----------+------+
+4 rows in set (0.00 sec)
+
+mysql> select rollno,deptname,name from dept right outer join mentees on mdept.rollno=mentees.regno;
+ERROR 1146 (42S02): Table 'balaji.dept' doesn't exist
+mysql> select rollno,deptname,name from mdept right outer join mentees on mdept.rollno=mentees.regno;
++--------+----------+---------+
+| rollno | deptname | name    |
++--------+----------+---------+
+|   NULL | NULL     | karthik |
+|   NULL | NULL     | hithesh |
+|   NULL | NULL     | nani    |
++--------+----------+---------+
+3 rows in set (0.00 sec)
