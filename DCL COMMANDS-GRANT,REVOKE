@@ -1,0 +1,62 @@
+mysql> desc bank;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| accno              | int(20)     | NO   | PRI | 0       |       |
+| accname            | varchar(20) | YES  |     | NULL    |       |
+| balance            | int(10)     | YES  |     | NULL    |       |
+| nooftransactions   | int(10)     | YES  |     | NULL    |       |
+| paymentreferenceid | int(12)     | YES  |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> create user balaji;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> grant all on bank to balaji;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for balaji;
++-----------------------------------------------------------+
+| Grants for balaji@%                                      |
++-----------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'balaji'@'%'                       |
+| GRANT ALL PRIVILEGES ON `balaji`.`bank` TO 'balaji'@'%' |
++-----------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke all on bank from balaji;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for balaji;
++-------------------------------------+
+| Grants for balaji@%                |
++-------------------------------------+
+| GRANT USAGE ON *.* TO 'balaji'@'%' |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+
+mysql> grant select,update on sales to balaji;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show grants for balaji;
++------------------------------------------------------------+
+| Grants for balaji@%                                       |
++------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'balaji'@'%'                        |
+| GRANT SELECT, UPDATE ON `balaji`.`sales` TO 'balaji'@'%' |
++------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke update on sales from balaji;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for balaji;
++----------------------------------------------------+
+| Grants for balaji@%                               |
++----------------------------------------------------+
+| GRANT USAGE ON *.* TO 'balaji'@'%'                |
+| GRANT SELECT ON `balaji`.`sales` TO 'balaji'@'%' |
++----------------------------------------------------+
+2 rows in set (0.00 sec)
