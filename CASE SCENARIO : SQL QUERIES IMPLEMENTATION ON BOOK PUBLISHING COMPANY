@@ -1,0 +1,115 @@
+mysql> use balaji
+Database changed
+mysql> create table book_company(Book_no int(5),Book_name varchar(30),Author_name varchar(30),Cost int(4),Edition int(2));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>  insert into book_company values(100,"DBMS","ViCKY",500,2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  insert into book_company values(101,"DBMS","VARUN",400,1);
+Query OK, 1 row affected (0.02 sec)
+
+mysql>  insert into book_company values(102,"SE","VARUN",200,3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  insert into book_company values(103,"BIOEVS","VINEET",400,4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from book_company;
++---------+-----------+-------------+------+---------+
+| Book_no | Book_name | Author_name | Cost | Edition |
++---------+-----------+-------------+------+---------+
+|     100 | DBMS      | ViCKY       |  500 |       2 |
+|     101 | DBMS      | VARUN       |  400 |       1 |
+|     102 | SE        | VARUN       |  200 |       3 |
+|     103 | BIOEVS    | VINEET      |  400 |       4 |
++---------+-----------+-------------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> update book_company set Author_name="Ted" where Book_no=100;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from book_company;
++---------+-----------+-------------+------+---------+
+| Book_no | Book_name | Author_name | Cost | Edition |
++---------+-----------+-------------+------+---------+
+|     100 | DBMS      | Ted         |  500 |       2 |
+|     101 | DBMS      | VARUN       |  400 |       1 |
+|     102 | SE        | VARUN       |  200 |       3 |
+|     103 | BIOEVS    | VINEET      |  400 |       4 |
++---------+-----------+-------------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> create table Authors(Author_id int(4),Author_name varchar(30),Research_area varchar(30));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into Authors values(200,"Newton","Physics");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into Authors values(300,"aryabhatta","maths");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into Authors values(350,"de-broglie","optics");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Authors values(400,"vanthoff","thermodyanamics");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from authors;
++-----------+-------------+-----------------+
+| Author_id | Author_name | Research_area   |
++-----------+-------------+-----------------+
+|       200 | Newton      | Physics         |
+|       300 | aryabhatta  | maths           |
+|       350 | de-broglie  | optics          |
+|       400 | vanthoff    | thermodyanamics |
++-----------+-------------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select author_name from book_company where book_name="SE";
++-------------+
+| author_name |
++-------------+
+| VARUN       |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select Edition from book_company where Book_name="BIOEVS";
++---------+
+| Edition |
++---------+
+|       4 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> alter table book_company add Published_Year int(4);
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql>  update book_company set Published_Year=1995 where Book_no=200;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql>  update book_company set Published_Year=1995 where Book_no=300;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql>  update book_company set Published_Year=1995 where Book_no=350;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql>  update book_company set Published_Year=1995 where Book_no=400;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select*from book_company;
++---------+-----------+-------------+------+---------+----------------+
+| Book_no | Book_name | Author_name | Cost | Edition | Published_Year |
++---------+-----------+-------------+------+---------+----------------+
+|     100 | DBMS      | Ted         |  500 |       2 |           NULL |
+|     101 | DBMS      | VARUN       |  400 |       1 |           NULL |
+|     102 | SE        | VARUN       |  200 |       3 |           NULL |
+|     103 | BIOEVS    | VINEET      |  400 |       4 |           NULL |
++---------+-----------+-------------+------+---------+----------------+
+4 rows in set (0.00 sec)
